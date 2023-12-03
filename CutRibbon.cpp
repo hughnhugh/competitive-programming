@@ -2,21 +2,6 @@
 
 using namespace std;
 
-int dfs(int n, int lengths[3]) {
-    if (n == 0) return 1;
-    if (n - lengths[0] >= 0) {
-        dfs(n-lengths[0], lengths);
-    }
-    if (n - lengths[1] >= 0) {
-        dfs(n-lengths[0], lengths);
-    }
-    if (n - lengths[2] >= 0) {
-        dfs(n-lengths[0], lengths);
-    }
-
-    
-}
-
 int main() {
     int n, a, b, c;
     cin >> n >> a >> b >> c;
@@ -24,9 +9,18 @@ int main() {
     int lengths[3] = {a, b, c};
     sort(lengths, lengths + 3);
 
-    cout << dfs(n, lengths);
+    vector<int> dp(n + 1, INT_MIN);
+    dp[0] = 0;
 
-    // Each step we can subtract a, b, or c from n and add to count;
-    // 
+    for (int i=1; i<=n; i++) {
+        for (int j=0; j<3; j++) {
+            int length = lengths[j];
+            if (i - length < 0) continue;
+            dp[i] = max(dp[i-length] + 1, dp[i]);
+        }
+    }
+
+    cout << dp[n];
+
     return 0;
 }
