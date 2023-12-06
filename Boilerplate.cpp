@@ -7,6 +7,7 @@ int main() {
     int test;
     cin >> test;
     
-    while(test--){
+    while (test--) {
+
     }
 }
