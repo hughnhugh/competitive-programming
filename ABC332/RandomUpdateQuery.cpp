@@ -27,11 +27,11 @@ int main() {
         int l, r, x;
         cin >> l >> r >> x;
 
-        int sum = sumAll(l, r, arr)/(r-l+1);
+        // int sum = sumAll(l, r, arr)/(r-l+1);
 
-        for (int j=l; j <= r; j++) {
-            arr[j] = ((r-l+1) * arr[j] + sum)/(r-l+1);
-        }
+        // for (int j=l; j <= r; j++) {
+        //     arr[j] = ((r-l+1) * arr[j] + sum)/(r-l+1);
+        // }
     }
 
 }

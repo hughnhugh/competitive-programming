@@ -3,23 +3,36 @@
 using namespace std;
 
 int main() {
-    // DFS
-    // Two counts of int n 5s and int m 0s
-    // String build n amount of 5s with m amounts of 0s
-    // Progress the 0s along the significant bits like a caterpillar
-    // Caterpillar grows by 1 distance each time
+    int n;
+    cin >> n;
 
-    // Increment number by 90 until it exceeds max digit we can build from input
-    // Check if this number can be formed using our digits
+    int fives = 0;
+    int zeros = 0;
 
-    /*
-                                    5
-                                5       0
-                            5       0
+    for (int i=0; i<n; i++) {
+        int current;
+        cin >> current;
+        if (current == 5) fives++;
+        if (current == 0) zeros++;
+    }
 
-    */
+    fives = fives - (fives%9);
 
+    if (zeros >= 1) {
+        if (fives == 0) {
+            cout << 0;
+        } else {
+            for (int i=0; i<fives; i++) {
+                cout << 5;
+            }
 
+            for (int i=0; i<zeros; i++) {
+                cout << 0;
+            }
+        }
+    } else {
+        cout << -1;
+    }
 
     return 0;
 }
