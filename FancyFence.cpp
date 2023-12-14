@@ -1,22 +1,30 @@
-#include <iostream> 
+#include <bits/stdc++.h>
 
 using namespace std;
 
 int main() {
-    int m;
+    cin.tie(0);
+    ios_base::sync_with_stdio(0);
 
-    cin >> m;
+    int test;
+    cin >> test;
 
-    int array [m];
+    set<int> angles;
+    int multiple = 1; // Triangle or the first polygon
+    int sides = 3;
 
-    for (int i=0; i < m; i++) {
-        cin >> array[i];
+    double angle = (double) multiple++ * 180 / sides++;
+
+    while (angle <= 179) {
+        if (abs(angle - round(angle)) < 0.0000000001) angles.insert(angle);
+        angle = (double) multiple++ * 180 / sides++;
     }
 
-    int currentAngle = 180;
-
-    for (int i=0; i < m; i++) {
-        
+    while (test--) {
+        int a;
+        cin >> a;
+        if (angles.find(a) != angles.end()) cout << "YES" << "\n";
+        else cout << "NO" << "\n";
     }
 
     return 0;
