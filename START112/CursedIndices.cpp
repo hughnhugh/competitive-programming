@@ -20,32 +20,19 @@ int main() {
 
         sort(arr.begin(), arr.end());
 
-        int cursed = 0;
-        int sum = arr[0];
-        int index = 0;
-        for (int i=1; i<n; i++) {
-            if (index <= i) index = i+1;
-            if (arr[i] > sum) {
-                sum += arr[i];
-            } else {
-                bool found = false;
-                while (index < n) {
-                    if (arr[index++] > sum) {
-                        found = true;
-                        break;
-                    }
+        int cursed = 0, runningSum = arr[0], nextLargerIndex = 1;
+        for (int i = 1; i < n; i++) {
+            if (arr[i] <= runningSum) {
+                while (nextLargerIndex < n && arr[nextLargerIndex] <= runningSum) {
+                    nextLargerIndex++;
                 }
-                if (!found) {
-                    cursed = n-i;
+                if (nextLargerIndex == n) {
+                    cursed = n - i;
                     break;
                 }
-                else {
-                    int temp = arr[i];
-                    arr[i] = arr[index-1];
-                    arr[index-1] = temp;
-                    sum += arr[i];
-                }
+                swap(arr[i], arr[nextLargerIndex]);
             }
+            runningSum += arr[i];
         }
 
         cout << cursed << "\n";

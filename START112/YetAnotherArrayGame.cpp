@@ -24,12 +24,12 @@ int main() {
 
         if (s == 0) {
             if (n%2==0) {
-                while (count++ < n/2) {
-                    sum+=arr[count];
+                while (count < n/2) {
+                    sum+=arr[1+count++];
                 }
             } else {
-                while (count++ < n/2) {
-                    sum+=arr[count-1];
+                while (count < n/2+1) {
+                    sum+=arr[count++];
                 }
             }
             cout << sum << "\n";
