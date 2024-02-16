@@ -12,33 +12,32 @@ struct ListNode {
 class Solution {
 public:
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
-        int multiplier = 1;
+        ListNode* dummy = new ListNode(); // Use an empty dummy node as a placeholder.
+        ListNode* tail = dummy; // Tail pointer for the result list.
 
-        ListNode* dummy = new ListNode(0);
-        ListNode* node = dummy;
-
-        bool carry = false;
+        int carry = 0;
         
-        while (l1 || l2) {
+        while (l1 || l2 || carry) { // Continue if either list has elements or there is a carry.
             int sum = carry;
-            if (l1) sum += l1->val;
-            if (l2) sum += l2->val;
-
-            if (sum > 9) carry = true;
-            else carry = false;
-
-            sum %= 10;
-            node->val = sum;
-
-            if ((l1 && l1->next) || (l2 && l2->next) || carry) {
-                node->next = new ListNode(1);
-                node = node->next;
+            if (l1) {
+                sum += l1->val;
+                l1 = l1->next;
+            }
+            if (l2) {
+                sum += l2->val;
+                l2 = l2->next;
             }
 
-            if (l1) l1 = l1->next;
-            if (l2) l2 = l2->next;
+            carry = sum / 10; // Determine new carry.
+            sum = sum % 10; // Determine value to store in the current node.
+
+            // Create a new node for the sum and advance the tail.
+            tail->next = new ListNode(sum);
+            tail = tail->next;
         }
 
-        return dummy;
+        ListNode* result = dummy->next; // The first real node of the result list.
+        delete dummy; // Clean up the dummy node.
+        return result; // Return the result list starting from the first real node.
     }
 };
