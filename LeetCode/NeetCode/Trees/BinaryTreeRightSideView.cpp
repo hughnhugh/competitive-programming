@@ -14,7 +14,6 @@ struct TreeNode {
 class Solution {
 public:
     vector<int> rightSideView(TreeNode* root) {
-        vector<stack<int>> levelStacks;
         vector<int> res;
 
         if (!root) return res;
@@ -26,16 +25,10 @@ public:
             pair<TreeNode*, int> current = nodeQueue.front();
             nodeQueue.pop();
 
-            if (levelStacks.size() < current.second + 1) levelStacks.push_back({});
-            levelStacks[current.second].push(current.first->val);
-            if (current.first->left) nodeQueue.push(make_pair(current.first->left, current.second+1));
+            if (res.size() < current.second + 1) res.push_back(current.first->val);
+
             if (current.first->right) nodeQueue.push(make_pair(current.first->right, current.second+1));
-        }
-
-        res.resize(levelStacks.size());
-
-        for (int i=0; i<levelStacks.size(); i++) {
-            res[i] = levelStacks[i].top();
+            if (current.first->left) nodeQueue.push(make_pair(current.first->left, current.second+1));
         }
 
         return res;
